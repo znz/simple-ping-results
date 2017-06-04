@@ -1,0 +1,21 @@
+.container
+  .page-header
+    %h1= @title
+
+  %table.table.table-striped.table-hover
+    %tr
+      %th #
+      %th IP range
+      %th enabled?
+      %th
+    - Target.all.each do |target|
+      %tr
+        %td= target.id
+        %td= target.range_with_min_max
+        %td= target.enable
+        %td
+          %a(href="/admin/target/#{target.id}")
+            Edit
+    %caption
+      %a(href="/admin/target/new")
+        New target

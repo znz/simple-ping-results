@@ -1,0 +1,33 @@
+.container
+  .page-header
+    %h1= @title
+
+  %script(src="/ip.js")
+
+  %nav
+    %ul.pager
+      %li
+        %a(href="/ip/#{@target.range}/#{@x}/#{@offset+1}")
+          &laquo; Older
+      %li
+        %a(href="/")
+          index
+      - if @offset-1 > 0
+        %li
+          %a(href="/ip/#{@target.range}/#{@x}/#{@offset-1}")
+            Newer &raquo;
+      - elsif @offset-1 == 0
+        %li
+          %a(href="/ip/#{@target.range}/#{@x}/")
+            Newer &raquo;
+
+  - day = Date.today << @offset.to_i*12
+  .row
+    .col-md-4
+      - results = @target.ip_results(@x, created_at: day.all_year)
+      - if results.size != 0
+        %canvas#canvas
+          :javascript
+            drawIpResults("canvas", "info", #{results.to_json})
+    .col-md-4
+      .hover-info#info

@@ -1,0 +1,56 @@
+- limit = 3
+
+.container
+  .page-header
+    %h1= @title
+
+  %script(src="/main.js")
+
+  %nav
+    %ul.pager
+      - if !params[:all]
+        %li
+          %a(href="/index/#{@offset+limit}")
+            &laquo; Older
+        %li
+          %a(href="/index/#{@offset}?all=1")
+            All
+        - if @offset - limit > 0
+          %li
+            %a(href="/index/#{@offset-limit}")
+              Newer &raquo;
+        - if @offset - limit <= 0 && @offset != 0
+          %li
+            %a(href="/")
+              Newer &raquo;
+      - else
+        %li
+          %a(href="/index/#{@offset+limit}?all=1")
+            &laquo; Older
+        %li
+          %a(href="/index/#{@offset}")
+            Enabled only
+        - if @offset - limit > 0
+          %li
+            %a(href="/index/#{@offset-limit}?all=1")
+              Newer &raquo;
+        - if @offset - limit <= 0 && @offset != 0
+          %li
+            %a(href="/?all=1")
+              Newer &raquo;
+
+  - now = Time.now
+  - Target.order(:range).where(@target_cond).each_slice(3) do |targets|
+    .row
+      - targets.each do |target|
+        .col-md-4
+          %h3
+            %a(href="/target/#{target.range}/#{@offset == 0 ? '' : @offset}")
+              = target.range_with_min_max
+          - (@offset+limit-1).downto(@offset).each do |n|
+            - results = target.all_results(created_at: now.days_ago(n).all_day)
+            - if results[:results].size != 0
+              %canvas(id="canvas-#{target.id}-#{n}")
+                :javascript
+                  drawResults("canvas-#{target.id}-#{n}", "info-#{target.id}", #{results.to_json})
+          .hover-info(id="info-#{target.id}")

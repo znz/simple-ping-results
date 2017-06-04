@@ -1,0 +1,44 @@
+- limit = 7
+
+.container
+  .page-header
+    %h1= @title
+
+  %script(src="/main.js")
+
+  %nav
+    %ul.pager
+      %li
+        %a(href="/target/#{@target.range}/#{@offset+limit}")
+          &laquo; Older
+      %li
+        - if @offset != 0
+          %a(href="/index/#{@offset}")
+            index
+        - else
+          %a(href="/")
+            index
+      - if @offset - limit > 0
+        %li
+          %a(href="/target/#{@target.range}/#{@offset-limit}")
+            Newer &raquo;
+      - elsif @offset - limit == 0
+        %li
+          %a(href="/target/#{@target.range}/")
+            Newer &raquo;
+
+  - now = Time.now
+  - offset = @offset
+  - (offset+limit-1).downto(offset) do |n|
+    .row
+      - day = now.days_ago(n)
+      .col-md-4
+        %h3= day.strftime('%Y-%m-%d(%a)')
+      .col-md-4
+        - results = @target.all_results(created_at: day.all_day)
+        - if results[:results].size != 0
+          %canvas(id="canvas-#{n}")
+            :javascript
+              drawResults("canvas-#{n}", "info-#{n}", #{results.to_json})
+      .col-md-4
+        .hover-info(id="info-#{n}")

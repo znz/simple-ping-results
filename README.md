@@ -1,0 +1,25 @@
+# Simple Ping Results
+
+simple ping results collecting system using fping and ruby (sinatra, hamlit, sequel, clockwork)
+
+## How to use
+
+- Install `fping` (`sudo apt install fping`, `brew install fping`, etc.)
+- `git clone https://github.com/znz/simple-ping-results`
+- `cd simple-ping-results`
+- `bundle install`
+- `rake db:migrate DATABASE_URL=sqlite://development.db`
+- `bundle exec irb -r irb/completion -r ./app` and `Target.create(range: '192.168.1.x', min: 1, max: 254)` and/or `Target.create(range: '192.168.x.1', min: 0, max: 255)`, etc.
+  - `range: '192.168.1.x', min: 1, max: 254` means `192.168.1.1-254`
+  - `range: '192.168.x.1', min: 0, max: 255` means `192.168.0.255.1`
+- `BASIC_AUTH_USERNAME=admin BASIC_AUTH_PASSWORD=admin bundle exec foreman start`
+- `open http://localhost:5000/`
+
+## Import data of simple-ping-summary
+
+Import data of [simple-ping-summary](https://github.com/znz/simple-ping-summary).
+
+Example:
+
+- `ruby import.rb 192.168.1.x 1 254 /path/to/data/192.168.1`
+- `ruby import.rb 192.168.x.1 1 255 /path/to/data/192.168`
