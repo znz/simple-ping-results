@@ -23,3 +23,17 @@ Example:
 
 - `ruby import.rb 192.168.1.x 1 254 /path/to/data/192.168.1`
 - `ruby import.rb 192.168.x.1 1 255 /path/to/data/192.168`
+
+## Using in Dokku
+
+- Install [Dokku](http://dokku.viewdocs.io/dokku/)
+- `dokku apps:create ping`
+- `dokku config:set --no-restart ping TZ=Asia/Tokyo`
+- `dokku config:set --no-restart ping BASIC_AUTH_USERNAME=admin BASIC_AUTH_PASSWORD=admin`
+- `sudo dokku plugin:install https://github.com/dokku/dokku-postgres`
+- `dokku postgres:create ping-db`
+- `dokku postgres:link ping-db ping`
+- `sudo dokku plugin:install https://github.com/F4-Group/dokku-apt`
+- `git push dokku@dokku.me:ping master`
+- `dokku run ping rake db:migrate`
+- `dokku ps:scale ping clock=1`
