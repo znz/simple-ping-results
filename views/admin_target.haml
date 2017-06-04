@@ -5,25 +5,25 @@
   %form(method="post")
     - if @target.id
       %input(type="hidden" name="_method" value="PUT")
-    .form-group{class: @target.errors.key?(:range) ? 'has-error' : nil}
+    .form-group{class: @target.errors.key?(:range) && 'has-error'}
       %label(for="target_range") Range
       %input.form-control(name="range" value="#{@target.range}" id="target_range")
       - if @target.errors.key?(:range)
         - @target.errors[:range].each do |error|
           %span.help-block= error
-    .form-group{class: @target.errors.key?(:min) ? 'has-error' : nil}
+    .form-group{class: @target.errors.key?(:min) && 'has-error'}
       %label(for="target_min") Min
       %input.form-control(name="min" value="#{@target.min}" id="target_min")
       - if @target.errors.key?(:min)
         - @target.errors[:min].each do |error|
           %span.help-block= error
-    .form-group{class: @target.errors.key?(:max) ? 'has-error' : nil}
+    .form-group{class: @target.errors.key?(:max) && 'has-error'}
       %label(for="target_max") Max
       %input.form-control(name="max" value="#{@target.max}" id="target_max")
       - if @target.errors.key?(:max)
         - @target.errors[:max].each do |error|
           %span.help-block= error
-    %div{class: @target.errors.key?(:enable) ? 'has-error' : nil}
+    %div{class: @target.errors.key?(:enable) && 'has-error'}
       .checkbox
         %label
           %input(name="enable" type="checkbox"){checked: @target.enable}
