@@ -35,5 +35,4 @@ Example:
 - `dokku postgres:link ping-db ping`
 - `sudo dokku plugin:install https://github.com/F4-Group/dokku-apt`
 - `git push dokku@dokku.me:ping master`
-- `dokku run ping rake db:migrate`
 - `dokku ps:scale ping clock=1`
