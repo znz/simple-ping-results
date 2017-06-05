@@ -16,7 +16,7 @@ end
 cond = { range: range, min: min, max: max }
 target = Target.where(cond).first
 unless target
-  target = Target.create(cond)
+  target = Target.create(cond.merge(group: 'Default'))
 end
 Dir.glob("#{path}/**/*.out").sort.each do |file|
   mtime = File.mtime(file)
