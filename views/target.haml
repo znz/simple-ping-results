@@ -29,16 +29,16 @@
 
   - now = Time.now
   - offset = @offset
-  - (offset+limit-1).downto(offset) do |n|
-    .row
+  %table.table.table-condensed
+    - (offset+limit-1).downto(offset) do |n|
       - day = now.days_ago(n)
-      .col-md-4
-        %h3= day.strftime('%Y-%m-%d(%a)')
-      .col-md-4
-        - results = @target.all_results(created_at: day.all_day)
-        - if results[:results].size != 0
-          %canvas(id="canvas-#{n}")
-            :javascript
-              drawResults("canvas-#{n}", "info-#{n}", #{results.to_json})
-      .col-md-4
-        .hover-info(id="info-#{n}")
+      %tr
+        %td
+          - results = @target.all_results(created_at: day.all_day)
+          - if results[:results].size != 0
+            %canvas(id="canvas-#{n}")
+              :javascript
+                drawResults("canvas-#{n}", "info-#{n}", #{results.to_json})
+        %td
+          = day.strftime('%Y-%m-%d (%a)')
+          .hover-info(id="info-#{n}")

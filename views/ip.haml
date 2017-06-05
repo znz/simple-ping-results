@@ -22,12 +22,13 @@
             Newer &raquo;
 
   - day = Date.today << @offset.to_i*12
-  .row
-    .col-md-4
-      - results = @target.ip_results(@x, created_at: day.all_year)
-      - if results.size != 0
-        %canvas#canvas
-          :javascript
-            drawIpResults("canvas", "info", #{results.to_json})
-    .col-md-4
-      .hover-info#info
+  %h3= day.strftime('%Y')
+  %table.table.table-condensed
+    %tr
+      %td
+        - results = @target.ip_results(@x, created_at: day.all_year)
+        - if results.size != 0
+          %canvas#canvas
+            :javascript
+              drawIpResults("canvas", "info", #{results.to_json})
+  .hover-info#info
