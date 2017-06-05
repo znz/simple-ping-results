@@ -2,6 +2,6 @@
 Sequel.migration do
   transaction
   change do
-    add_column :targets, :group, :string, null: false, default: 'Default'
+    add_column :targets, :group, String, null: false, default: 'Default'
   end
 end
