@@ -5,12 +5,14 @@
   %table.table.table-striped.table-hover
     %tr
       %th #
+      %th Group
       %th IP range
       %th enabled?
       %th
     - Target.all.each do |target|
       %tr
         %td= target.id
+        %td= target.group
         %td= target.range_with_min_max
         %td= target.enable
         %td

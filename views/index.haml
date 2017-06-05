@@ -40,17 +40,23 @@
               Newer &raquo;
 
   - now = Time.now
-  - Target.order(:range).where(@target_cond).each_slice(3) do |targets|
-    .row
-      - targets.each do |target|
-        .col-md-4
-          %h3
+  - Target.order(:range).where(@target_cond).to_a.group_by{|t| t.group}.each.with_index do |(group, targets), idx|
+    %h2= group
+    %table.table.table-condensed
+      %tr
+        %th
+        - targets.each do |target|
+          %th
             %a(href="/target/#{target.range}/#{@offset == 0 ? '' : @offset}")
               = target.range_with_min_max
-          - (@offset+limit-1).downto(@offset).each do |n|
-            - results = target.all_results(created_at: now.days_ago(n).all_day)
-            - if results[:results].size != 0
-              %canvas(id="canvas-#{target.id}-#{n}")
-                :javascript
-                  drawResults("canvas-#{target.id}-#{n}", "info-#{target.id}", #{results.to_json})
-          .hover-info(id="info-#{target.id}")
+      - (@offset+limit-1).downto(@offset).each do |n|
+        %tr
+          %th.text-right= (Date.today-n).strftime("%Y-%m-%d (%a)")
+          - targets.each do |target|
+            %td
+              - results = target.all_results(created_at: now.days_ago(n).all_day)
+              - if results[:results].size != 0
+                %canvas(id="canvas-#{target.id}-#{n}")
+                  :javascript
+                    drawResults("canvas-#{target.id}-#{n}", "info-#{idx}", #{results.to_json})
+    .hover-info(id="info-#{idx}")

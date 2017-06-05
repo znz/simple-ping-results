@@ -8,8 +8,8 @@ simple ping results collecting system using fping and ruby (sinatra, hamlit, seq
 - `git clone https://github.com/znz/simple-ping-results`
 - `cd simple-ping-results`
 - `bundle install --path .bundle/vendor --without postgres`
-- `bundle exec rake db:migrate DATABASE_URL=sqlite://development.db`
-- `bundle exec irb -r irb/completion -r ./app` and `Target.create(range: '192.168.1.x', min: 1, max: 254)` and/or `Target.create(range: '192.168.x.1', min: 0, max: 255)`, etc.
+- `bundle exec rake db:migrate DATABASE_URL=sqlite://development.db` or `rake db:migrate DATABASE_URL=sqlite://development.db`
+- `bundle exec irb -r irb/completion -r ./app` and `Target.create(range: '192.168.1.x', min: 1, max: 254, group: 'LAN')` and/or `Target.create(range: '192.168.x.1', min: 0, max: 255, group: 'LAN')`, etc.
   - `range: '192.168.1.x', min: 1, max: 254` means `192.168.1.1-254`
   - `range: '192.168.x.1', min: 0, max: 255` means `192.168.0.255.1`
 - `BASIC_AUTH_USERNAME=admin BASIC_AUTH_PASSWORD=admin bundle exec foreman start`

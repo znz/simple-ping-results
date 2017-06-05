@@ -60,7 +60,7 @@ end
 
 get '/admin/target/new' do
   protect!
-  @target = Target.new
+  @target = Target.new(group: 'Default', enable: true)
   @title = "New target: Simple Ping Results"
   haml :admin_target
 end
@@ -71,6 +71,7 @@ post '/admin/target/new' do
   @target.range = params[:range]
   @target.min = params[:min]
   @target.max = params[:max]
+  @target.group = params[:group]
   @target.enable = !!params[:enable]
   begin
     @target.save
@@ -93,6 +94,7 @@ put '/admin/target/:id' do
   @target.range = params[:range]
   @target.min = params[:min]
   @target.max = params[:max]
+  @target.group = params[:group]
   @target.enable = !!params[:enable]
   begin
     @target.save

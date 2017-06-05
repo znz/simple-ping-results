@@ -5,6 +5,12 @@
   %form(method="post")
     - if @target.id
       %input(type="hidden" name="_method" value="PUT")
+    .form-group{class: @target.errors.key?(:group) && 'has-error'}
+      %label(for="target_group") Group
+      %input.form-control(name="group" value="#{@target.group}" id="target_group")
+      - if @target.errors.key?(:group)
+        - @target.errors[:group].each do |error|
+          %span.help-block= error
     .form-group{class: @target.errors.key?(:range) && 'has-error'}
       %label(for="target_range") Range
       %input.form-control(name="range" value="#{@target.range}" id="target_range")

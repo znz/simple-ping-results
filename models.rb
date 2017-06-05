@@ -9,7 +9,7 @@ class Target < Sequel::Model
 
   def validate
     super
-    validates_presence [:range, :min, :max]
+    validates_presence [:range, :min, :max, :group]
     validates_format /\A(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|x)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|x)\z/, :range
     errors.add(:range, 'has multiple x') if /x.*x/ =~ range
     errors.add(:range, 'has no x') if /x/ !~ range
