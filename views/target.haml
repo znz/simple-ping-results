@@ -14,10 +14,10 @@
       %li
         - if @offset != 0
           %a(href="/index/#{@offset}")
-            index
+            Index
         - else
           %a(href="/")
-            index
+            Index
       - if @offset - limit > 0
         %li
           %a(href="/target/#{@target.range}/#{@offset-limit}")
