@@ -18,20 +18,24 @@ target = Target.where(cond).first
 unless target
   target = Target.create(cond.merge(group: 'Default'))
 end
-Dir.glob("#{path}/**/*.out").sort.each do |file|
-  mtime = File.mtime(file)
-  if PingResult.where(cond.merge(created_at: mtime)).first
-    puts "#{file}: skip"
-    next
-  end
-  o = File.read(file)
-  fping = target.addresses.each_with_object(''.dup) do |address, result|
-    if /^#{Regexp.quote(address)} is alive$/ =~ o
-      result << '1'
-    else
-      result << '0'
+Dir.glob("#{path}/*").sort.each do |dir|
+  DB.transaction do
+    Dir.glob("#{dir}/**/*.out").sort.each do |file|
+      mtime = File.mtime(file)
+      if PingResult.where(cond.merge(created_at: mtime)).first
+        puts "#{file}: skip"
+        next
+      end
+      o = File.read(file)
+      fping = target.addresses.each_with_object(''.dup) do |address, result|
+        if /^#{Regexp.quote(address)} is alive$/ =~ o
+          result << '1'
+        else
+          result << '0'
+        end
+      end
+      PingResult.create(cond.merge(created_at: mtime, results: fping))
+      puts "#{file}: import"
     end
   end
-  PingResult.create(cond.merge(created_at: mtime, results: fping))
-  puts "#{file}: import"
 end
