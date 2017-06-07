@@ -4,8 +4,8 @@ ENV['DATABASE_URL'] ||= 'sqlite://development.db'
 require_relative 'models'
 
 module Clockwork
-  interval = 10.minutes
-  every(interval, 'fping') do
+  interval = ENV.fetch('PING_INTERVAL') { 10.minutes }.to_i
+  every(interval, 'ping') do
     Target.where(enable: true).each do |target|
       result = target.create_result
       alive = result.results.count('1')
