@@ -9,7 +9,7 @@
       %th IP range
       %th enabled?
       %th
-    - Target.all.each do |target|
+    - Target.order(:id).all.each do |target|
       %tr
         %td= target.id
         %td= target.group
