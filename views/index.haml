@@ -40,7 +40,7 @@
               Newer &raquo;
 
   - now = Time.now
-  - Target.order(:range).where(@target_cond).to_a.group_by{|t| t.group}.each.with_index do |(group, targets), idx|
+  - Target.order(:range).where(@target_cond).to_a.group_by{|t| t.group}.sort_by{|group, targets| group}.each.with_index do |(group, targets), idx|
     %h2= group
     %table.table.table-condensed
       %tr
