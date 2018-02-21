@@ -11,3 +11,4 @@ gem 'sqlite3', groups: %i(development test)
 gem 'pg', group: :postgres
 gem 'clockwork'
 gem 'foreman', group: :development
+gem 'activesupport'
