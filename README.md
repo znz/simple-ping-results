@@ -32,8 +32,8 @@ Example:
 - `dokku config:set --no-restart ping BASIC_AUTH_USERNAME=admin BASIC_AUTH_PASSWORD=admin`
 - `dokku config:set --no-restart ping PING_INTERVAL=600` if you want to change ping interval (see clock.rb)
 - `sudo dokku plugin:install https://github.com/dokku/dokku-postgres`
-- `dokku postgres:create ping-db`
-- `dokku postgres:link ping-db ping`
+- `dokku postgres:create ping_db`
+- `dokku postgres:link ping_db ping`
 - `sudo dokku plugin:install https://github.com/F4-Group/dokku-apt`
 - `git push dokku@dokku.me:ping master`
 - `dokku ps:scale ping clock=1`
