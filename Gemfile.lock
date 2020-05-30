@@ -7,7 +7,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
-    backports (3.17.1)
+    backports (3.17.2)
     clockwork (2.0.4)
       activesupport
       tzinfo
@@ -30,7 +30,7 @@ GEM
     rack-protection (2.0.8.1)
       rack
     ruby2_keywords (0.0.2)
-    sequel (5.31.0)
+    sequel (5.32.0)
     sinatra (2.0.8.1)
       mustermann (~> 1.0)
       rack (~> 2.0)
