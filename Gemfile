@@ -2,7 +2,7 @@
 source 'https://rubygems.org'
 
 ruby File.read(__dir__+'/.ruby-version').chomp
-gem 'thin'
+gem 'puma'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'hamlit'
