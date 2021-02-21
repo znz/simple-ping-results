@@ -8,7 +8,7 @@ gem 'sinatra-contrib'
 gem 'hamlit'
 gem 'sequel'
 gem 'sqlite3', groups: %i(development test)
-gem 'pg', group: %i(postgres production)
+gem 'pg', group: :postgres
 gem 'clockwork'
 gem 'foreman', group: :development
 gem 'activesupport'
