@@ -1,4 +1,14 @@
 {
+  "healthchecks": {
+    "web": [
+        {
+            "name": "web check",
+            "type": "startup",
+            "path": "/",
+            "content": "Simple Ping Results"
+        }
+    ]
+  },
   "scripts": {
     "dokku": {
       "predeploy": "rake db:migrate"
