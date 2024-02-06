@@ -1,0 +1,65 @@
+name: Dependabot
+on: pull_request_target
+
+permissions:
+  pull-requests: write
+  contents: write
+  repository-projects: write
+
+jobs:
+  dependabot:
+    # if: ${{ github.actor == 'dependabot[bot]' }}
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Fetch Dependabot metadata
+      id: dependabot-metadata
+      uses: dependabot/fetch-metadata@c9c4182bf1b97f5224aee3906fd373f6b61b4526 # v1.6.0
+
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    - name: Dump Dependabot metadata
+      env:
+        DEPENDABOT_METADATA: ${{ toJson(steps.dependabot-metadata.outputs) }}
+      run: echo "$DEPENDABOT_METADATA"
+
+    - name: Set scheduled_merge (bundler)
+      if: ${{contains(steps.dependabot-metadata.outputs.dependency-type, 'bundler')}}
+      run: |
+        echo "MERGE=on_schedule" >> $GITHUB_ENV
+
+    - name: Set auto merge (github actions)
+      if: ${{contains(steps.dependabot-metadata.outputs.dependency-type, 'github-actions')}}
+      run: |
+        echo "MERGE=auto" >> $GITHUB_ENV
+
+    - name: Add scheduled_merge label
+      if: ${{ env.MERGE == 'on_schedule' }}
+      run: gh pr edit "$PR_URL" --add-label scheduled_merge
+      env:
+        PR_URL: ${{github.event.pull_request.html_url}}
+        GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      if: ${{ env.MERGE == 'on_schedule' || env.MERGE == 'auto' }}
+    - name: Approve a PR if not already approved
+      if: ${{ env.MERGE == 'on_schedule' || env.MERGE == 'auto' }}
+      run: |
+        gh pr checkout "$PR_URL" # sets the upstream metadata for `gh pr status`
+        if [ "$(gh pr status --json reviewDecision -q .currentBranch.reviewDecision)" != "APPROVED" ];
+        then gh pr review --approve "$PR_URL"
+        else echo "PR already approved, skipping additional approvals to minimize emails/notification noise.";
+        fi
+      env:
+        PR_URL: ${{github.event.pull_request.html_url}}
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+    - name: Enable auto-merge for Dependabot PRs
+      if: ${{ env.MERGE == 'auto' }}
+      run: gh pr merge --auto --merge "$PR_URL"
+      env:
+        PR_URL: ${{github.event.pull_request.html_url}}
+        GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
