@@ -12,7 +12,7 @@ GEM
       mutex_m
       tzinfo (~> 2.0)
     base64 (0.2.0)
-    bigdecimal (3.1.6)
+    bigdecimal (3.1.7)
     clockwork (3.0.2)
       activesupport
       tzinfo
@@ -42,7 +42,7 @@ GEM
       rack (~> 2.2, >= 2.2.4)
     rake (13.1.0)
     ruby2_keywords (0.0.5)
-    sequel (5.78.0)
+    sequel (5.79.0)
       bigdecimal
     sinatra (3.1.0)
       mustermann (~> 3.0)
