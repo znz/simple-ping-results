@@ -20,7 +20,7 @@ GEM
     connection_pool (2.4.1)
     drb (2.2.0)
       ruby2_keywords
-    foreman (0.87.2)
+    foreman (0.88.1)
     hamlit (3.0.3)
       temple (>= 0.8.2)
       thor
