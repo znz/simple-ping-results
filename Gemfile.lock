@@ -42,7 +42,7 @@ GEM
       rack (~> 2.2, >= 2.2.4)
     rake (13.2.1)
     ruby2_keywords (0.0.5)
-    sequel (5.79.0)
+    sequel (5.80.0)
       bigdecimal
     sinatra (3.1.0)
       mustermann (~> 3.0)
