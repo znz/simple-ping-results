@@ -45,7 +45,7 @@ GEM
     rake (13.2.1)
     ruby2_keywords (0.0.5)
     securerandom (0.3.1)
-    sequel (5.79.0)
+    sequel (5.87.0)
       bigdecimal
     sinatra (3.1.0)
       mustermann (~> 3.0)
