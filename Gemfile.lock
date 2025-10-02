@@ -15,7 +15,7 @@ GEM
       tzinfo (~> 2.0, >= 2.0.5)
     base64 (0.2.0)
     benchmark (0.4.0)
-    bigdecimal (3.1.9)
+    bigdecimal (3.2.3)
     clockwork (3.0.2)
       activesupport
       tzinfo
@@ -45,7 +45,7 @@ GEM
     rake (13.2.1)
     ruby2_keywords (0.0.5)
     securerandom (0.4.0)
-    sequel (5.92.0)
+    sequel (5.97.0)
       bigdecimal
     sinatra (3.1.0)
       mustermann (~> 3.0)
