@@ -32,7 +32,6 @@ GEM
       concurrent-ruby (~> 1.0)
     json (2.18.0)
     logger (1.7.0)
-    mini_portile2 (2.8.9)
     minitest (6.0.1)
       prism (~> 1.5)
     multi_json (1.19.1)
@@ -57,6 +56,8 @@ GEM
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
+    rackup (2.3.1)
+      rack (>= 3)
     rake (13.3.1)
     ruby2_keywords (0.0.5)
     securerandom (0.4.1)
@@ -75,8 +76,6 @@ GEM
       rack-protection (= 4.2.1)
       sinatra (= 4.2.1)
       tilt (~> 2.0)
-    sqlite3 (2.9.0)
-      mini_portile2 (~> 2.8.0)
     sqlite3 (2.9.0-aarch64-linux-gnu)
     sqlite3 (2.9.0-aarch64-linux-musl)
     sqlite3 (2.9.0-arm-linux-gnu)
@@ -101,7 +100,6 @@ PLATFORMS
   arm-linux-gnu
   arm-linux-musl
   arm64-darwin
-  ruby
   x86-linux-gnu
   x86-linux-musl
   x86_64-darwin
@@ -116,6 +114,7 @@ DEPENDENCIES
   hamlit
   pg
   puma
+  rackup
   rake
   sequel
   sinatra

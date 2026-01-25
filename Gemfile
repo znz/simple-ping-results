@@ -13,3 +13,4 @@ gem 'clockwork'
 gem 'foreman', group: :development
 gem 'activesupport'
 gem 'rake'
+gem 'rackup'
